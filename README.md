@@ -11,7 +11,7 @@ and the steps to populate it
 
 ## Getting Started
 
-In your psql run the commands that you can find in schema.sql, data.sql and queries.sql
+In your psql, run the commands that you can find in schema.sql, data.sql and queries.sql
 
 ## Authors
 
