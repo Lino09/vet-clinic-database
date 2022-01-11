@@ -16,3 +16,14 @@ SELECT * FROM animals WHERE neutered = B'1';
 SELECT * FROM animals WHERE name <> 'Gabumon';
 --Find all animals with a weight between 10.4kg and 17.3kg (including the animals with the weights that equals precisely 10.4kg or 17.3kg)
 SELECT * FROM animals WHERE weigth_kg >= 10.4 AND weigth_kg <= 17.3;
+
+--day 2
+BEGIN;
+UPDATE animals SET species = 'undefined';
+SELECT * FROM animals;
+--worked!
+ROLLBACK;
+
+--lets check if it worked
+SELECT * FROM animals;
+
