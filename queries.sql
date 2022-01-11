@@ -27,3 +27,33 @@ ROLLBACK;
 --lets check if it worked
 SELECT * FROM animals;
 
+BEGIN;
+UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon';
+UPDATE animals SET species = 'pokemon' WHERE species <> 'digimon';
+COMMIT; 
+
+BEGIN;
+DELETE FROM animals;
+ROLLBACK;
+
+BEGIN;
+DELETE FROM animals WHERE date_of_birth > '2022-01-01';
+SAVEPOINT  no_future;
+UPDATE animals SET weigth_kg = weigth_kg * -1;
+ROLLBACK TO no_future;
+UPDATE animals SET weigth_kg = weigth_kg * -1 WHERE weigth_kg < 0;
+
+
+--How many animals are there?
+SELECT COUNT(*) FROM animals;
+--How many animals have never tried to escape?
+SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
+--What is the average weight of animals?
+SELECT AVG(weigth_kg) FROM animals;
+--Who escapes the most, neutered or not neutered animals?
+SELECT neutered, COUNT(neutered) FROM animals GROUP BY neutered;
+--What is the minimum and maximum weight of each type of animal?
+SELECT MAX(weigth_kg), MIN(weigth_kg), species FROM animals GROUP BY species;
+--What is the average number of escape attempts per animal type of those born between 1990 and 2000?
+SELECT AVG(escape_attempts) FROM animals WHERE date_of_birth >= '1990-01-01' AND date_of_birth <= '2000-12-31';
+
