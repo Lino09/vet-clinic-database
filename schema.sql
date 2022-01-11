@@ -11,4 +11,6 @@ CREATE TABLE animals(
   weigth_kg DECIMAL
 );
 
+--day 2
+
 ALTER TABLE animals ADD species TEXT;
