@@ -10,3 +10,5 @@ CREATE TABLE animals(
   neutered BIT,
   weigth_kg DECIMAL
 );
+
+ALTER TABLE animals ADD species TEXT;
