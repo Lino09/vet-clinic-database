@@ -84,7 +84,7 @@ SELECT name FROM animals INNER JOIN owners ON owners.id = animals.owner_id WHERE
 --Who owns the most animals?
  --to see how many owns each one 
  SELECT COUNT(animals.name), owners.full_name FROM animals INNER JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name;
---to see only the one who owns the most
+--to see how many are the max pets
 SELECT MAX (y.mycount)
 FROM (SELECT owners.full_name, COUNT(animals.name) mycount
 FROM animals INNER JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name)y;
