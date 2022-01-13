@@ -42,6 +42,7 @@ SAVEPOINT  no_future;
 UPDATE animals SET weigth_kg = weigth_kg * -1;
 ROLLBACK TO no_future;
 UPDATE animals SET weigth_kg = weigth_kg * -1 WHERE weigth_kg < 0;
+COMMIT;
 
 
 --How many animals are there?
@@ -57,3 +58,33 @@ SELECT MAX(weigth_kg), MIN(weigth_kg), species FROM animals GROUP BY species;
 --What is the average number of escape attempts per animal type of those born between 1990 and 2000?
 SELECT AVG(escape_attempts) FROM animals WHERE date_of_birth >= '1990-01-01' AND date_of_birth <= '2000-12-31';
 
+--day3
+
+--What animals belong to Melody Pond?
+SELECT COUNT(name), full_name FROM owners INNER JOIN animals ON owners.id = owner_id GROUP BY owners.full_name;
+--This one shows how many each one has
+SELECT COUNT(name) FROM animals INNER JOIN owners ON owners.id = animals.owner_id WHERE owners.full_name = 'Melody Pond';
+--thid onr id dprcific for Melody Pond
+
+--List of all animals that are pokemon (their type is Pokemon).
+SELECT animals.name FROM animals INNER JOIN species ON animals.species_id = species.id WHERE species.name = 'Pokemon';
+
+--List all owners and their animals, remember to include those that don't own any animal.
+SELECT full_name, name FROM owners FULL OUTER JOIN animals ON animals.owner_id = owners.id;
+
+--How many animals are there per species?
+SELECT species.name, count(animals.name) FROM species INNER JOIN animals ON animals.species_id = species.id GROUP BY species.name;
+
+--List all Digimon owned by Jennifer Orwell.
+SELECT name FROM animals INNER JOIN owners ON owners.id = animals.owner_id WHERE owners.full_name = 'Jennifer Orwell';
+
+--List all animals owned by Dean Winchester that haven't tried to escape.
+SELECT name FROM animals INNER JOIN owners ON owners.id = animals.owner_id WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+--Who owns the most animals?
+ --to see how many owns each one 
+ SELECT COUNT(animals.name), owners.full_name FROM animals INNER JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name;
+--to see how many are the max pets
+SELECT MAX (y.mycount)
+FROM (SELECT owners.full_name, COUNT(animals.name) mycount
+FROM animals INNER JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name)y;
