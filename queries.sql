@@ -37,8 +37,8 @@ DELETE FROM animals;
 ROLLBACK;
 
 BEGIN;
-DELETE FROM animals WHERE date_of_birth > '2022-01-01';
 SAVEPOINT  no_future;
+DELETE FROM animals WHERE date_of_birth > '2022-01-01';
 UPDATE animals SET weigth_kg = weigth_kg * -1;
 ROLLBACK TO no_future;
 UPDATE animals SET weigth_kg = weigth_kg * -1 WHERE weigth_kg < 0;
@@ -88,3 +88,4 @@ SELECT name FROM animals INNER JOIN owners ON owners.id = animals.owner_id WHERE
 SELECT MAX (y.mycount)
 FROM (SELECT owners.full_name, COUNT(animals.name) mycount
 FROM animals INNER JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name)y;
+
