@@ -69,3 +69,11 @@ CREATE TABLE visits (
   CONSTRAINT vetsFK FOREIGN KEY (vets_id)
   REFERENCES vets(id)
 );
+
+--Week2 day 1
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+CREATE INDEX visits_animal_id_asc ON visits(animal_id ASC);
+CREATE INDEX visits_vets_id_asc ON visits(vets_id ASC);
+CREATE INDEX owners_email_id_asc ON owners(email ASC);
