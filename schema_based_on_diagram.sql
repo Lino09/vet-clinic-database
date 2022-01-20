@@ -19,6 +19,7 @@ CONSTRAINT fk_patient
   FOREIGN KEY(patient_id)
     REFERENCES patients(patient_id)
 );
+CREATE INDEX medical_histories_patient_id_asc ON medical_histories(patient_id ASC);
 
 CREATE TABLE treatments(
 treatment_id INT GENERATED ALWAYS AS IDENTITY,
@@ -39,6 +40,8 @@ CREATE TABLE invoices(
       REFERENCES medical_histories(medical_histories_id)
 );
 
+CREATE INDEX invoices_medical_histories_asc ON invoices(medical_histories_id ASC);
+
 CREATE TABLE invoice_items(
 invoice_item_id INT GENERATED ALWAYS AS IDENTITY,
 unit_price DECIMAL,
@@ -54,12 +57,15 @@ CONSTRAINT fk_treatments
   FOREIGN KEY(treatment_id)
     REFERENCES treatments(treatment_id)
 );
-
+CREATE INDEX invoice_items_invoice_id_asc ON invoice_items(invoice ASC);
+CREATE INDEX treatments_invoice_id_asc ON invoice_items(treatment_id ASC);
 --JOIN TABLE
 
 CREATE TABLE treatment_records(
+  treatment_record_id INT GENERATED ALWAYS AS IDENTITY,
   medical_histories_id INT,
   treatment_id INT,
+  PRIMARY KEY (treatment_record_id)
   CONSTRAINT fk_medical_histories
     FOREIGN KEY(medical_histories_id)
       REFERENCES medical_histories(medical_histories_id),
@@ -67,5 +73,7 @@ CREATE TABLE treatment_records(
     FOREIGN KEY(treatment_id)
       REFERENCES treatments(treatment_id)
 );
+CREATE INDEX treatment_records_m_h_id_asc ON treatment_records(medical_histories_id ASC);
+CREATE INDEX treatment_records_treatments_id_asc ON treatment_records(treatment_id ASC);
 
 
