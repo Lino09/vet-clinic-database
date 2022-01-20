@@ -55,4 +55,17 @@ CONSTRAINT fk_treatments
     REFERENCES treatments(treatment_id)
 );
 
+--JOIN TABLE
+
+CREATE TABLE treatment_records(
+  medical_histories_id INT,
+  treatment_id INT,
+  CONSTRAINT fk_medical_histories
+    FOREIGN KEY(medical_histories_id)
+      REFERENCES medical_histories(medical_histories_id),
+  CONSTRAINT fk_treatments_record
+    FOREIGN KEY(treatment_id)
+      REFERENCES treatments(treatment_id)
+);
+
 
